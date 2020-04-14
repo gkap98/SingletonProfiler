@@ -24,10 +24,11 @@ public class ReportCounts extends JFrame {
         countPanel = new JPanel();
 
         String html = "";
-        html += "<html><table><tr><th>Profiler ID</th><th>Count</th></tr>";
+        html += "<html><h1>Profiler Count Log</h1><table><tr><th>Profiler ID</th><th></th><th>Count</th></tr>";
         for (String id : counts.keySet()) {
             html += "<tr>";
             html += "<td>" + id + "</td>";
+            html += "<td></td>";
             html += "<td>" + counts.get(id) + "</td>";
             html += "</tr>";
         }

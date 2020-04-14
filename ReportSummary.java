@@ -21,7 +21,7 @@ public class ReportSummary extends JFrame {
         summaryPanel = new JPanel();
 
         String html = "";
-        html += "<html><table><tr><th>Average Time</th><th>Shortest Time</th><th>Longest Time</th></tr>";
+        html += "<html><h1>Profiler Log Summary</h1><table><tr><th>Average Time</th><th>Shortest Time</th><th>Longest Time</th></tr>";
 
         long time = 0;
         int timers = 0;
@@ -37,28 +37,33 @@ public class ReportSummary extends JFrame {
         html += "<td>" + Long.toString(ave) + "</td>";
 
         long longestTime = 0;
+        String longestID = "";
         for (String id : profiles.keySet()) {
             for (int i = 0; i < profiles.get(id).size(); i++) {
                 if (profiles.get(id).get(i).differenceNS(profiles.get(id).get(i).getBegin(),
                         profiles.get(id).get(i).getEnd()) > longestTime) {
                     longestTime = profiles.get(id).get(i).differenceNS(profiles.get(id).get(i).getBegin(),
                             profiles.get(id).get(i).getEnd());
+                    longestID = id;
+
                 }
             }
         }
-        html += "<td>" + Long.toString(longestTime) + "</td>";
+        html += "<td>" + longestID + " - " + Long.toString(longestTime) + "</td>";
 
         long shortestTime = longestTime;
+        String shortestID = "";
         for (String id : profiles.keySet()) {
             for (int i = 0; i < profiles.get(id).size(); i++) {
                 if (profiles.get(id).get(i).differenceNS(profiles.get(id).get(i).getBegin(),
                         profiles.get(id).get(i).getEnd()) < shortestTime) {
                     shortestTime = profiles.get(id).get(i).differenceNS(profiles.get(id).get(i).getBegin(),
                             profiles.get(id).get(i).getEnd());
+                    shortestID = id;
                 }
             }
         }
-        html += "<td>" + Long.toString(shortestTime) + "</td>";
+        html += "<td>" + shortestID + " - " + Long.toString(shortestTime) + "</td>";
         html += "</tr>";
         html += "</table></htlm>";
 
@@ -67,7 +72,7 @@ public class ReportSummary extends JFrame {
 
         add(new JScrollPane(summaryPanel));
 
-        setSize(400, 150);
+        setSize(500, 150);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocation(100, 750);
         setVisible(true);
