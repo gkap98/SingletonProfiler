@@ -31,7 +31,8 @@ public class Profiler {
 
             if (profilers.containsKey(profilerID)) {
                 ArrayList<TimeSpan> timers = profilers.get(profilerID);
-                if (timers.get(timers.size() - 1).getEnd() == null) {
+    //8888888
+                if (timers.get(timers.size()).getEnd() == null) {
                     throw new ProfilerException();
                 }
                 timers.add(t);
@@ -128,10 +129,5 @@ public class Profiler {
         ReportTimes report = new ReportTimes(profilers);
         ReportCounts count = new ReportCounts(counts);
         ReportSummary summary = new ReportSummary(profilers);
-        // System.out.println("Counts: ");
-        // System.out.println();
-        // for (String id: counts.keySet()) {
-        // System.out.println(id + " - " + counts.get(id));
-        // }
     }
 }

@@ -1,7 +1,5 @@
 import javax.swing.*;
 import java.util.*;
-import java.awt.GridLayout;
-import java.awt.*;
 
 public class ReportTimes extends JFrame {
 
@@ -23,7 +21,7 @@ public class ReportTimes extends JFrame {
         panel = new JPanel();
 
         String html = "";
-        html += "<html><h1>Profiler Time Log</h1><table><tr><th>Profiler ID</th><th>Start Time</th><th>End Time</th><th>Start Message</th><th>End Message</th></tr>";
+        html += "<html><h1>Profiler Time Log</h1> <table><tr><th>Profiler ID</th><th>Start Time</th><th>End Time</th><th>Start Message</th><th>End Message</th></tr>";
         for (String id : profiles.keySet()) {
             for (int i = 0; i < profiles.get(id).size(); i++) {
                 html += "<tr>";

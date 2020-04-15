@@ -1,7 +1,5 @@
 import javax.swing.*;
 import java.util.*;
-import java.awt.GridLayout;
-import java.awt.*;
 
 public class ReportCounts extends JFrame {
 
@@ -14,7 +12,7 @@ public class ReportCounts extends JFrame {
     private JPanel countPanel;
 
     public ReportCounts(Map<String, Integer> counts) {
-        super("Count Log");
+        super("Profiler Count Log");
 
         setUpGUI(counts);
     }

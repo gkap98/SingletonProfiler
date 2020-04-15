@@ -12,7 +12,7 @@ public class ReportSummary extends JFrame {
     private JPanel summaryPanel;
 
     public ReportSummary(Map<String, ArrayList<TimeSpan>> profiles) {
-        super("Summary Log");
+        super("Profiler Summary Log");
 
         setUpGUI(profiles);
     }
@@ -20,50 +20,36 @@ public class ReportSummary extends JFrame {
     private void setUpGUI(Map<String, ArrayList<TimeSpan>> profiles) {
         summaryPanel = new JPanel();
 
+        // BEGINING HTML
         String html = "";
-        html += "<html><h1>Profiler Log Summary</h1><table><tr><th>Average Time</th><th>Shortest Time</th><th>Longest Time</th></tr>";
+        html += "<html><h1>Profiler Log Summary</h1><table><tr><th>Profiler ID</th><th>Average Time</th><th>Shortest Time</th><th>Longest Time</th></tr>";
 
-        long time = 0;
-        int timers = 0;
         for (String id : profiles.keySet()) {
-            for (int i = 0; i < profiles.get(id).size(); i++) {
-                time += profiles.get(id).get(i).differenceNS(profiles.get(id).get(i).getBegin(),
-                        profiles.get(id).get(i).getEnd());
-                timers++;
-            }
-        }
-        long ave = time / timers;
-        html += "<tr>";
-        html += "<td>" + Long.toString(ave) + "</td>";
+            long aveTime = 0;
+            long longTime = 0;
 
-        long longestTime = 0;
-        String longestID = "";
-        for (String id : profiles.keySet()) {
+            html += "<tr><td>" + id + "</td>";
             for (int i = 0; i < profiles.get(id).size(); i++) {
+                aveTime += profiles.get(id).get(i).differenceNS(profiles.get(id).get(i).getBegin(),
+                        profiles.get(id).get(i).getEnd()) / profiles.get(id).size();
                 if (profiles.get(id).get(i).differenceNS(profiles.get(id).get(i).getBegin(),
-                        profiles.get(id).get(i).getEnd()) > longestTime) {
-                    longestTime = profiles.get(id).get(i).differenceNS(profiles.get(id).get(i).getBegin(),
+                        profiles.get(id).get(i).getEnd()) > longTime) {
+                    longTime = profiles.get(id).get(i).differenceNS(profiles.get(id).get(i).getBegin(),
                             profiles.get(id).get(i).getEnd());
-                    longestID = id;
-
                 }
             }
-        }
-        html += "<td>" + longestID + " - " + Long.toString(longestTime) + "</td>";
-
-        long shortestTime = longestTime;
-        String shortestID = "";
-        for (String id : profiles.keySet()) {
+            long shortTime = longTime;
             for (int i = 0; i < profiles.get(id).size(); i++) {
                 if (profiles.get(id).get(i).differenceNS(profiles.get(id).get(i).getBegin(),
-                        profiles.get(id).get(i).getEnd()) < shortestTime) {
-                    shortestTime = profiles.get(id).get(i).differenceNS(profiles.get(id).get(i).getBegin(),
+                        profiles.get(id).get(i).getEnd()) < shortTime) {
+                    shortTime = profiles.get(id).get(i).differenceNS(profiles.get(id).get(i).getBegin(),
                             profiles.get(id).get(i).getEnd());
-                    shortestID = id;
                 }
             }
+            html += "<td>" + aveTime + "</td>" + "<td>" + shortTime + "</td>" + "<td>" + longTime + "</td></tr>";
         }
-        html += "<td>" + shortestID + " - " + Long.toString(shortestTime) + "</td>";
+
+        // ENDING HTML
         html += "</tr>";
         html += "</table></htlm>";
 
@@ -72,9 +58,9 @@ public class ReportSummary extends JFrame {
 
         add(new JScrollPane(summaryPanel));
 
-        setSize(500, 150);
+        setSize(500, 200);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setLocation(100, 750);
+        setLocation(100, 725);
         setVisible(true);
     }
 }
