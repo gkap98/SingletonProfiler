@@ -31,8 +31,7 @@ public class Profiler {
 
             if (profilers.containsKey(profilerID)) {
                 ArrayList<TimeSpan> timers = profilers.get(profilerID);
-    //8888888
-                if (timers.get(timers.size()).getEnd() == null) {
+                if (timers.get(timers.size() - 1).getEnd() == null) {
                     throw new ProfilerException();
                 }
                 timers.add(t);
@@ -75,7 +74,7 @@ public class Profiler {
             if (profilers.containsKey(profilerID)) {
                 ArrayList<TimeSpan> timers = profilers.get(profilerID);
                 TimeSpan t = timers.get(timers.size() - 1);
-                if (t.getBegin() == null) {
+                if (t.getBegin() == null || t.getEnd() != null) {
                     throw new ProfilerException();
                 }
                 t.setEnd(System.nanoTime());
@@ -92,7 +91,7 @@ public class Profiler {
             if (profilers.containsKey(profilerID)) {
                 ArrayList<TimeSpan> timers = profilers.get(profilerID);
                 TimeSpan t = timers.get(timers.size() - 1);
-                if (t.getBegin() == null) {
+                if (t.getBegin() == null || t.getEnd() != null) {
                     throw new ProfilerException();
                 }
                 t.setEnd(System.nanoTime());
