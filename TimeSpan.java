@@ -47,7 +47,7 @@ public class TimeSpan {
 
     // Methods
     public Long differenceMS(Long start, Long end) {
-        return end - start;
+        return (end - start) / 1000;
     }
 
     public Long differenceNS(Long start, Long end) {
